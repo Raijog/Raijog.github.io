@@ -1,10 +1,10 @@
 {
-  "name": "Wetter App",
-  "short_name": "Wetter",
+  "name": "Meteo Wetter App",
+  "short_name": "Meteo Wetter",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#141111",
-  "theme_color": "#305c59",
+  "background_color": "#87CEEB",
+  "theme_color": "#87CEEB",
   "icons": [
     {
       "src": "Icons/icon-192.png",
