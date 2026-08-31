@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wetter-app-v2';
+const CACHE_NAME = 'wetter-app-v3';
 
 // Alle Dateien eintragen, die lokal auf dem Handy gespeichert werden sollen
 const urlsToCache = [
