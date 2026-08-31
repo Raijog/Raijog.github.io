@@ -176,9 +176,15 @@ input {
     box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
 }
 
-.current-weather-pos:hover::after {
-    opacity: 1;
-    visibility: visible;
+@media (hover: hover) {
+	.current-weather-pos:hover::after {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+.current-weather-pos:active {
+		opacity: 0.6;
 }
 
 .current-weather-date {
