@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wetter-app-v1';
+const CACHE_NAME = 'wetter-app-v2';
 
 // Alle Dateien eintragen, die lokal auf dem Handy gespeichert werden sollen
 const urlsToCache = [
@@ -25,15 +25,11 @@ self.addEventListener('install', (event) => {
 // 2. Aktivierung: Alte Caches aufräumen
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
-      );
-    })
+    caches.keys().then((keys) => Promise.all(
+      keys.map((key) => {
+        if (key !== CACHE_NAME) return caches.delete(key);
+      })
+    ))
   );
   self.clients.claim();
 });
@@ -41,20 +37,6 @@ self.addEventListener('activate', (event) => {
 // 3. Laufzeit: Dateien aus Cache laden oder dynamic aus dem Netz holen (z.B. SVG-Icons)
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).then((networkResponse) => {
-        // Neue Anfragen (wie dynamisch geladene SVG-Icons) automatisch cachen
-        if (event.request.method === 'GET' && networkResponse.status === 200) {
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
-          });
-        }
-        return networkResponse;
-      });
-    })
+    caches.match(event.request).then((res) => res || fetch(event.request))
   );
 });
