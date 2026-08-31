@@ -1,0 +1,201 @@
+:root {
+    --background-color: rgb(20, 17, 17);
+    --font-color: #fff;
+
+    --border-radius: 25px;
+    --small-padding: 15px;
+    --big-padding: 20px;
+}
+
+html,
+body,
+main,
+input,
+p,
+hr {
+    font-family: 'Lato', sans-serif;
+    padding: 0;
+    margin: 0;
+    color: var(--font-color);
+}
+
+html {
+    background-color: var(--background-color);
+}
+
+main{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--small-padding);
+}
+
+hr {
+    opacity: 0.4;
+    margin: var(--small-padding) 0;
+}
+
+input {
+    background-color: transparent;
+    border: none;
+    font-size: 1.25em;
+}
+
+.weather-container{
+    margin: var(--small-padding);
+    padding: var(--big-padding);
+    border-radius: var(--border-radius);
+    max-width: 350px;
+    width: calc(100vw - var(--small-padding) * 2 - var(--big-padding) * 2);
+    background-image: linear-gradient(to left top, #305c59, #2a6065, #276371, #2c667d, #396788, #3b7197, #3d7ca6, #3f87b5, #17a0ca, #00b9d7, #00d1dc, #00e9da);
+}
+
+.wrapper-container{
+    max-width: none;
+    width: auto;
+}
+
+.search-weather-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+        "icon eingabe"
+        "text text"
+        "status status";
+    align-items: center;
+    gap: calc(var(--big-padding) / 2);
+}
+
+.hourly-weather-container {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    /* -webkit-overflow-scrolling: touch; */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+    user-select: none;         /* Standard */
+    -webkit-user-select: none; /* Safari, Chrome, Edge */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+ */
+}
+
+.hour-card {
+    flex: 0 0 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 5px;
+    text-align: center
+}
+
+.hour-time { font-size: 0.9em; }
+.hour-temp { font-size: 1.1em; }
+.hour-rain { font-size: 0.75em; padding: 5px 0 0 0; }
+
+.hour-card img,
+.hour-card svg,
+.hour-card .hour.icon {
+    pointer-events: none;    /* Verhindet jegliche Maus-Interaktin mit dem Icon selbst */
+}
+
+
+.forecast-weather-container {
+    display: grid;
+    grid-template-columns: auto auto auto 1.6em 0.8em auto;
+    justify-content: space-between;
+    font-size: 0.9em;
+    overflow-y: auto;
+    align-items: first center;
+}
+
+.icon-element {
+    grid-area: icon;
+    font-size: 1.0em;
+    display: inline-block;
+    width: auto;
+}
+
+.input-element {
+    grid-area: eingabe;
+}
+
+.text-element {
+    grid-area: text;
+    font-size: 0.8em;
+    color: yellow;
+}
+
+.status-element {
+    grid-area: status;
+    font-size: 1.2em;
+    height: 20px;
+    color: white;
+    text-shadow: -1px -1px 0 red, 1px -1px 0 red, -1px 1px 0 red, 1px 1px 0 red ;
+}
+
+.current-weather-temp {
+    font-size: 3em;
+}
+
+.current-weather-title {
+    font-size: 2em;
+}
+
+.current-weather-location,
+.current-weather-date {
+    font-size: 1em;
+}
+
+.current-weather-pos {
+    /* margin-bottom: var(--small-padding); */
+    color: yellow;
+    font-size: 0.8em;
+    cursor: pointer;
+    text-decoration: underline;
+    position: relative;
+    display: inline-block;
+}
+
+.current-weather-pos::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+}
+
+.current-weather-pos:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.current-weather-date {
+    margin-top: 1em;
+}
+
+#input-container {
+    anchor-name: --input-anker;
+}
+
+#selection-wrapper {
+    position: fixed;
+    position-anchor: --input-anker;
+    inset: unset;
+    margin: 0;
+    top: anchor(bottom);
+    left: anchor(left);
+    margin-top: -15px;
+    margin-left: var(--small-padding);
+}

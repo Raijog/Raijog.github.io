@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+        <title>Weather</title>
+
+        <!-- PWA & Theme Einstellungen -->
+        <link rel="manifest" href="manifest.json">
+        <meta name="theme-color" content="#305c59">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://font.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&display=swap">
+
+        <script src="icons.js" defer></script>
+        <script src="input.js" defer></script>
+        <script src="logic.js" defer></script>
+
+        <!-- Service Worker Registrierung -->
+        <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('Service Worker erfolgreich registriert:', reg.scope))
+                .catch(err => console.error('Service Worker Fehler:', err));
+            });
+        }
+        </script>
+    </head>
+    <body>
+        <main>
+            <div>
+                <div id=input-container class="weather-container search-weather-container">
+                    <i class="fa-solid fa-magnifying-glass icon-element"></i>
+                    <input class="input-element" id="city-input" type="text" autocomplete="off" autocorrect="off" spellcheck="false">
+                    <p class="text-element">
+                        Eingabeoptionen: "Ort", "Ort, de" oder "Ort, Deutschland"
+                    </p>
+                    <p class="status-element" id="status"></p>
+                </div>
+                    
+                <div class="weather-container current-weather-container">
+                    <div>
+                        <img src="" width="100">
+                    </div>
+                    <p class="current-weather-temp"></p>
+                    <p class="current-weather-title"></p>
+                    <hr>
+                    <p class="current-weather-location">
+                        <i class="fa-solid fa-cloud fa-fw"></i>
+                        <span></span>
+                    </p>
+                    <a class="current-weather-pos" href="#" data-tooltip="In Google Maps öffnen">
+                        <i class="fa-solid fa-map-marker-alt fa-fw"></i>
+                        <span></span>   
+                    </a>
+                    <p class="current-weather-date">
+                        <i class="fa-solid fa-calendar-days fa-fw"></i>
+                        <span></span>   
+                    </p>
+                </div>
+                <div class="weather-container hourly-weather-container">
+                </div>
+            </div>
+
+            <div class="weather-container forecast-weather-container"></div>
+
+            <div class="weather-container wrapper-container" id="selection-wrapper" popover style="display: none;">
+                <label for="results-select">Bitte Ort auswählen:</label>
+                <select id="results-select"></select>
+            </div>  
+            
+        </main>
+    </body>
+</html>
